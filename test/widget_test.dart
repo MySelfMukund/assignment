@@ -5,26 +5,36 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'package:assignment_task/app/modules/global_widgets/widget_testing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:assignment_task/main.dart';
-
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('Text Validation Error Finder', (WidgetTester tester) async {
+    await tester.pumpWidget(const MaterialApp(
+      home: WidgetTesting(),
+    ));
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    final buttonFinder = find.text('Validate');
+    final emailErrorFinder = find.text('Email field required');
+    await tester.tap(buttonFinder);
+    await tester.pump(
+      const Duration(milliseconds: 100),
+    );
+    expect(emailErrorFinder, findsOneWidget);
+  });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+  testWidgets('String value add & result checker', (WidgetTester tester) async {
+    await tester.pumpWidget(const MaterialApp(
+      home: WidgetTesting(),
+    ));
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    final nameButtonFinder = find.text('Show name');
+    final fullNameTextFinder = find.text('Mukund Pradhan');
+    await tester.tap(nameButtonFinder);
+    await tester.pump(
+      const Duration(milliseconds: 100),
+    );
+    expect(fullNameTextFinder, findsOneWidget);
   });
 }
