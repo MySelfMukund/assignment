@@ -7,7 +7,9 @@ import 'package:get/get.dart';
 import '../../modules/home/model/news_model_model.dart';
 
 class DioService {
-  Future<NewsModel?> getAllTopNews(String endPoint) async {
+// return response.body;
+
+  Future<NewsModel?> getAllNews(String endPoint) async {
     final response = await Dio().get(endPoint);
     if (response.statusCode == 200) {
       var data = newsModelFromJson(json.encode(response.data).toString());
@@ -19,9 +21,8 @@ class DioService {
       return null;
     }
   }
-// return response.body;
 
-  Future<NewsModel?> getAllNews(String endPoint) async {
+  Future<NewsModel?> getAllTopNews(String endPoint) async {
     final response = await Dio().get(endPoint);
     if (response.statusCode == 200) {
       var data = newsModelFromJson(json.encode(response.data).toString());
